@@ -6,6 +6,7 @@ import{ nftaddress,nftmarketaddress } from '../config';
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 import Image from 'next/image';
+import Head from 'next/head'
 
 export default function MyAssets() {
     const [nfts, setNfts] = useState([])
@@ -45,33 +46,54 @@ export default function MyAssets() {
       setNfts(items)
       setLoadingState('loaded') 
     }
-    if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No NFT owned</h1>)
+    if (loadingState === 'loaded' && !nfts.length) return (
+      
+      <div style={{ height: '400px'}}>
+        <Head>
+            <title>Home</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+         </Head>
+         <h1 className="py-10 px-20 text-3xl text-white">No NFT owned</h1>
+
+      </div>
+    )
+
     return (
-      <div className="flex justify-center">
-        <div className="p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-            {
-              nfts.map((nft, i) => (
-                <div key={i} className="border shadow rounded-xl overflow-hidden">
-           
-  
-                  <Image
-                              src={nft.image}
-                              alt="Picture of the author"
-                              className="rounded"
-                              width={350}
-                              height={500} 
-                              // blurDataURL="data:..." automatically provided
-                              // placeholder="blur" // Optional blur-up while loading
-                            />
-                  <div className="p-4 bg-black">
-                    <p className="text-2xl font-bold text-white">Price - {nft.price} ETH</p>
-                  </div>
+      <div className="m-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" style={{ maxWidth: '1600px'}}>
+        <Head>
+          <title>My NFT</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
+
+        {
+        nfts.map((nft, i) =>(
+          <div key={i} class="bg-orange-50 max-w-sm rounded-md overflow-hidden shadow-lg border-slate-300 hover:shadow-cyan-300 border-2 hover:border-cyan-500">
+            <Image class="w-full" src={nft.image} alt="Picture of the author" width="1980px" height="1080px"/>
+            <div className=''>
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">
+                  {/* {nft.name} */}
                 </div>
-              ))
-            }
+                <div className=' '>
+                  <p class="text-gray-700 truncate text-base">
+                    {/* {nft.description} */}
+                  </p>
+                </div>
+              </div>
+              <div className='px-6 py-3 text-lg float-right'>
+                <div className='mb-4 font-bold text-black '>
+                      <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width="18%" className='inline-block pb-1'/>
+                      <font className='pl-1'>
+                        {nft.price}
+                      </font>
+                </div>
+              </div>
+              <div class="px-6 pt-4 pb-4">
+              </div>
+            </div>
           </div>
-        </div>
+        ))
+      }
       </div>
     )
   }

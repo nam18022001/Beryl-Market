@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
 import Image from 'next/image'
+import Head from 'next/head'
 
 import {
   nftmarketaddress, nftaddress
@@ -53,49 +54,84 @@ export default function CreatorDashboard() {
     setNfts(items)
     setLoadingState('loaded')
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets created</h1>)
-  return (
-    <div>
-      <div className="p-4">
-        <h2 className="text-2xl py-2">Items Created</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-          {
-            nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-               
-
-                        <Image
-                            src={nft.image}
-                            alt="Picture of the author"
-                            className="rounded"
-                            width={250}
-                            height={300} 
-                            // blurDataURL="data:..." automatically provided
-                            // placeholder="blur" // Optional blur-up while loading
-                          />
-
-                <div className="p-4 bg-black">
-                  <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
-                </div>
-              </div>
-            ))
-          }
-        </div>
+  if (loadingState === 'loaded' && !nfts.length) return (
+    <div style={{ height: '400px'}}>
+        <Head>
+          <title>Dashboard</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
+         <h1 className="py-10 px-20 text-3xl text-white">No assets created</h1>
       </div>
-        <div className="px-4">
+  )
+  return (
+    <div className="m-6 " style={{ maxWidth: '1600px'}}>
+      <Head>
+          <title>Dashboard</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <div className="p-4">
+        <h2 className="text-2xl py-2 text-white">Items Created</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+            {
+              nfts.map((nft, i) =>(
+                <div key={i} class="bg-orange-50 max-w-sm rounded-md overflow-hidden shadow-lg border-slate-300 hover:shadow-cyan-300 border-2 hover:border-cyan-500">
+                  <Image class="w-full" src={nft.image} alt="Picture of the author" width="1980px" height="1080px"/>
+                  <div className=''>
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">{nft.name}</div>
+                      <div className=' '>
+                        <p class="text-gray-700 truncate text-base">
+                          {nft.description}
+                        </p>
+                      </div>
+                    </div>
+                    <div className='px-6 py-3 text-lg float-right'>
+                      <div className='mb-4 font-bold text-black '>
+                            <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width="18%" className='inline-block pb-1'/>
+                            <font className='pl-1'>
+                              {nft.price}
+                            </font>
+                      </div>
+                    </div>
+                    <div class="px-6 pt-4 pb-4">
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div className="px-4 ">
         {
           Boolean(sold.length) && (
             <div>
-              <h2 className="text-2xl py-2">Items sold</h2>
+              <h2 className="text-2xl py-2 text-white">Items sold</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                 {
                   sold.map((nft, i) => (
-                    <div key={i} className="border shadow rounded-xl overflow-hidden">
-                      <img src={nft.image} className="rounded" />
-                      <div className="p-4 bg-black">
-                        <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
+                    <div key={i} class="bg-orange-50 max-w-sm rounded-md overflow-hidden shadow-lg shadow-cyan-300 border-4 border-cyan-300">
+                  <Image class="w-full" src={nft.image} alt="Picture of the author" width="1980px" height="1080px"/>
+                  <div className=''>
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">{nft.name}</div>
+                      <div className=' '>
+                        <p class="text-gray-700 truncate text-base">
+                          {nft.description}
+                        </p>
                       </div>
                     </div>
+                    <div className='px-6 py-3 text-lg float-right'>
+                      <div className='mb-4 font-bold text-black '>
+                            <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width="18%" className='inline-block pb-1'/>
+                            <font className='pl-1'>
+                              {nft.price}
+                            </font>
+                      </div>
+                    </div>
+                    <div class="px-6 pt-4 pb-4">
+                    </div>
+                  </div>
+                </div>
                   ))
                 }
               </div>

@@ -1,12 +1,10 @@
-
-import styles from '../styles/Home.module.css';
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 import { nftaddress, nftmarketaddress } from '../config';
 import Image from 'next/image';
-
+import Head from 'next/head'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 
@@ -65,13 +63,25 @@ export default function Home() {
   }
 
   if (loadingState === 'loaded' && !nfts.length) return (
-    <h1 className='px-20 py-10 text-3xl'>No items found</h1>
+    <div className='' style={{ height: '400px'}}>
+      <Head>
+        <title>Home</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+    
+    <h1 className='px-20 py-10 text-3xl text-white '>No items found</h1>
+    </div>
   )
   return (
-    <div class="m-6 grid grid-cols-4 gap-10">
+      
+    <div class="m-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" style={{ maxWidth: '1600px'}}>
+      <Head>
+        <title>Home</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       {
         nfts.map((nft, i) =>(
-          <div key={i} class="bg-orange-50 max-w-sm rounded-md overflow-hidden shadow-lg border-slate-300 hover:shadow-cyan-300 border-2 hover:border-cyan-500">
+          <div key={i} class="bg-teal-100 max-w-sm rounded-md overflow-hidden shadow-lg border-slate-300 hover:shadow-cyan-300 border-2 hover:border-cyan-500">
             <Image class="w-full" src={nft.image} alt="Picture of the author" width="1980px" height="1080px"/>
             <div className=''>
               <div class="px-6 py-4">
