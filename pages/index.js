@@ -90,7 +90,7 @@ export default function Home() {
                       </font>
                 </div>
               </div>
-              <div class="px-6 pt-4 pb-2">
+              <div class="px-6 pt-4 pb-4">
               <button className="bg-transparent hover:bg-blue-500 hover:text-white border border-blue-500 hover:border-transparent w-full text-blue-500 font-bold py-2 px-12 rounded-full"
                 onClick={() => buyNFT(nft)}>Buy NFT</button>
               </div>
